@@ -1,22 +1,21 @@
 import { Route, Routes, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./context/UserContext";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register";
+import Update from "./pages/Update";
 
-import { useContext } from "react";
-import { UserContext } from "./context/UserContext";
-
-fetch("http://localhost:3000/todos")
-  .then((res) => res.json())
-  .then((data) => console.log(data));
+import Navbar from "./components/Navbar";
 
 const App = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
 
   return (
-    <div>
+    <div className="container">
+      <Navbar />
       <Routes>
         <Route
           path="/"
@@ -27,8 +26,16 @@ const App = () => {
           element={!user ? <Login /> : <Navigate to="/dashboard" />}
         />
         <Route
+          path="/register"
+          element={!user ? <Register /> : <Navigate to="/dashboard" />}
+        />
+        <Route
           path="/dashboard"
           element={user ? <Dashboard /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/update/:id"
+          element={user ? <Update /> : <Navigate to="/login" />}
         />
       </Routes>
     </div>

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Batería electrónica Alesis Nitro Mesh",
+    "user": "test@test.com",
+    "description": "La mejor batería para iniciar en el mundo de la percución, poco uso",
+    "price": "$350.000",
+    "img": "https://falabella.scene7.com/is/image/Falabella/11224452_3?wid=800&hei=800&qlt=70"
+  },
+  {
+    "id": 2,
+    "title": "Guitarra Dean 350f",
+    "user": "test@test.com",
+    "description": "Una guitarra increible con todo lo que necesitas para tus solos rockeros",
+    "price": "$550.000",
+    "img": "https://www.intelcoms.net/wp-content/uploads/2018/12/Guitarra-electrica-dean-custom-c350f2.png"
+  },
+  {
+    "id": 3,
+    "title": "Teclado Yamaha",
+    "user": "test@test.com",
+    "description": "Lo compré pero nunca lo usé, está como nuevo",
+    "price": "$200.000",
+    "img": "https://fluteservice.cl/wp-content/uploads/2021/05/273-1.jpg"
+  }
+]

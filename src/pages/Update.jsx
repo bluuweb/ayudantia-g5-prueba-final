@@ -1,16 +1,25 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
+import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
-const Dashboard = () => {
+const Update = () => {
+  const { id } = useParams();
+  const { products, updateProduct } = useContext(ProductContext);
   const { user } = useContext(UserContext);
-  const { createProduct, products, deleteProduct } = useContext(ProductContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [img, setImg] = useState("");
+
+  useEffect(() => {
+    const findProduct = products.find((item) => item.id === parseInt(id));
+    setTitle(findProduct.title);
+    setDescription(findProduct.description);
+    setPrice(findProduct.price);
+    setImg(findProduct.img);
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,15 +28,16 @@ const Dashboard = () => {
       description,
       price,
       img,
-      id: Date.now(),
+      id: parseInt(id),
       user: user.email,
     };
-    createProduct(newProduct);
+    updateProduct(newProduct);
+    console.log("editado");
   };
 
   return (
     <div>
-      <h1>Bienvenido: {user.name}</h1>
+      <h1>Actualizar producto</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -53,23 +63,9 @@ const Dashboard = () => {
           value={img}
           onChange={(e) => setImg(e.target.value)}
         />
-        <button type="submit">Agregar</button>
+        <button type="submit">Actualizar</button>
       </form>
-
-      <div>
-        {products
-          .filter((product) => product.user === user.email)
-          .map((product) => (
-            <article key={product.id}>
-              <h2>{product.title}</h2>
-              <button onClick={() => deleteProduct(product.id)}>
-                Eliminar
-              </button>
-              <Link to={`/update/${product.id}`}>Editar</Link>
-            </article>
-          ))}
-      </div>
     </div>
   );
 };
-export default Dashboard;
+export default Update;

@@ -12,6 +12,7 @@ const initialStateUser = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
 
+// eslint-disable-next-line react/prop-types
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(initialStateUser);
 
@@ -35,7 +36,9 @@ const UserProvider = ({ children }) => {
     return userDB;
   };
 
-  const register = () => {};
+  const register = (user) => {
+    setUser(user);
+  };
 
   const logout = () => {
     setUser(null);
@@ -43,7 +46,7 @@ const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, register }}>
       {children}
     </UserContext.Provider>
   );
