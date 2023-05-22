@@ -20,6 +20,7 @@ const ProductProvider = ({ children }) => {
     if (products.length === 0) {
       getProducts();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

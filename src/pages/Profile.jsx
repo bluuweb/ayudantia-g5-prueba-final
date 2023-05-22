@@ -1,47 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
 
-const Register = () => {
-  const navigate = useNavigate();
-  const { register } = useContext(UserContext);
+const Profile = () => {
+  const { user, updateUser } = useContext(UserContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [repassword, setRepassword] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setPhone(user.phone);
+      setPassword(user.password);
+    }
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (password !== repassword) {
-      return alert("no coinciden las contraseñas");
-    }
-
-    const user = register({
-      name,
-      email,
-      phone,
-      password,
-      id: Date.now(),
-    });
-
-    if (user) {
-      return alert("usuario ya existe");
-    }
-
-    setName("");
-    setEmail("");
-    setPhone("");
-    setPassword("");
-    setRepassword("");
-    return navigate("/dashboard");
+    updateUser({ ...user, name, email, phone, password });
   };
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Update Profile</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -67,15 +51,9 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input
-          type="password"
-          placeholder="Repita Contraseña"
-          value={repassword}
-          onChange={(e) => setRepassword(e.target.value)}
-        />
-        <button type="submit">Registrame</button>
+        <button type="submit">Actualizar</button>
       </form>
     </div>
   );
 };
-export default Register;
+export default Profile;

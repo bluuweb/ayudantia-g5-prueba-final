@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import Update from "./pages/Update";
 
 import Navbar from "./components/Navbar";
+import Profile from "./pages/Profile";
+import Favorites from "./pages/Favorites";
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -34,8 +36,16 @@ const App = () => {
           element={user ? <Dashboard /> : <Navigate to="/login" />}
         />
         <Route
+          path="/favorites"
+          element={user ? <Favorites /> : <Navigate to="/login" />}
+        />
+        <Route
           path="/update/:id"
           element={user ? <Update /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/profile"
+          element={user ? <Profile /> : <Navigate to="/login" />}
         />
       </Routes>
     </div>

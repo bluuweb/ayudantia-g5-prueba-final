@@ -32,6 +32,22 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink
+                to="/favorites"
+                role="button"
+              >
+                Favorites
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/profile"
+                role="button"
+              >
+                Profile
+              </NavLink>
+            </li>
+            <li>
               <button
                 role="button"
                 onClick={logout}
