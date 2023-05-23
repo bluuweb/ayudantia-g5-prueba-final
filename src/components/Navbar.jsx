@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { NavLink } from "react-router-dom";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 const Navbar = () => {
   const { user, logout } = useContext(UserContext);
+  const { favorites } = useContext(FavoritesContext);
 
   return (
     <nav>
@@ -29,6 +31,22 @@ const Navbar = () => {
                 role="button"
               >
                 Dashboard
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/profile"
+                role="button"
+              >
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/favorites"
+                role="button"
+              >
+                <i>❤️</i> {favorites.length}
               </NavLink>
             </li>
             <li>

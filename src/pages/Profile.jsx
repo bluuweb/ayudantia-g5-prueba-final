@@ -1,47 +1,40 @@
-import { useContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 
-const Register = () => {
-  const { register } = useContext(UserContext);
-  const navigate = useNavigate();
+const Profile = () => {
+  const { user, updateUser } = useContext(UserContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [repassword, setRepassword] = useState("");
+
+  useEffect(() => {
+    setName(user.name);
+    setEmail(user.email);
+    setPhone(user.phone);
+    setPassword(user.password);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (password !== repassword) {
-      return alert("no coinciden las contraseñas");
-    }
-
-    const user = register({
-      name,
-      email,
-      phone,
-      password,
-      id: Date.now(),
+    updateUser({
+      email: email,
+      name: name,
+      phone: phone,
+      password: password,
+      id: user.id,
     });
 
-    if (user) {
-      return Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "El email ya está registrado",
-      });
-    }
-
-    navigate.push("/dashboard");
+    Swal.fire("Datos actualizados");
   };
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Profile</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -67,15 +60,9 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input
-          type="password"
-          placeholder="Repita Contraseña"
-          value={repassword}
-          onChange={(e) => setRepassword(e.target.value)}
-        />
-        <button type="submit">Registrame</button>
+        <button type="submit">Actualizar</button>
       </form>
     </div>
   );
 };
-export default Register;
+export default Profile;

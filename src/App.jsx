@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Update from "./pages/Update";
+import Profile from "./pages/Profile";
+import Favorites from "./pages/Favorites";
 
 import Navbar from "./components/Navbar";
 
@@ -34,10 +36,20 @@ const App = () => {
           element={user ? <Dashboard /> : <Navigate to="/login" />}
         />
         <Route
+          path="/profile"
+          element={user ? <Profile /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/favorites"
+          element={user ? <Favorites /> : <Navigate to="/login" />}
+        />
+        <Route
           path="/update/:id"
           element={user ? <Update /> : <Navigate to="/login" />}
         />
       </Routes>
+
+      {/* Modal */}
     </div>
   );
 };

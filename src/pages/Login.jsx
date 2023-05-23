@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { useState } from "react";
 
 import { useContext } from "react";
@@ -10,16 +11,33 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const user = await login(email, password);
+
+    setError(false);
+
+    if (!email.trim()) {
+      setError(true);
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Falta llenar el email",
+      });
+    }
+
+    const user = login(email, password);
     if (user) {
       setEmail("");
       setPassword("");
       return navigate("/dashboard");
     }
-    alert("credenciales incorrectas");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Credenciales incorrectas",
+    });
   };
 
   return (
@@ -32,6 +50,9 @@ const Login = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {error && (
+          <div className="invalid-feedback">Please provide a valid city.</div>
+        )}
         <input
           type="password"
           placeholder="password"
